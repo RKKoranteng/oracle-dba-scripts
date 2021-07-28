@@ -1,8 +1,3 @@
-# author  : Richard Koranteng (rkkoranteng.com)
-# date    : 7/28/2021
-# desc    : kill sessions in a database where username like username
-# usage   : ./killSession.sh {ORACLE_SID} {USERNAME}
-
 if [ $# -ne 2 ]
 then
  echo -e "\nUsage: $0 ORACLE_SID UserName\n"
@@ -32,6 +27,7 @@ read -p "Kill the sessions for ${UserName}* in ${ORACLE_SID}? [y/n] " killnow
 
 if [ "${killnow}" == "y" ]
 then
+ echo "exit;" >> /tmp/kill_${ORACLE_SID}_${UserName}.sql
  sqlplus -S -L / as sysdba @/tmp/kill_${ORACLE_SID}_${UserName}.sql
 
 elif [ "${killnow}" == "n" ]
